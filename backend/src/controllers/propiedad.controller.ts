@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import { Propiedad } from '../models/propiedad.model';
-import { ValidatorOfPropiedad } from '../validators/propiedad.validator';
+import { ValidatorOfPropiedad, ValidatorOfPropiedadPartial } from '../validators/propiedad.validator';
 import path from 'node:path';
+import { Types } from 'mongoose';
 
 class PropiedadController {
   static addPropiedad = async (req: Request, res: Response): Promise<any | Response> => {
@@ -44,12 +45,37 @@ class PropiedadController {
 
   static updatePropiedad = async (req: Request, res: Response): Promise<any | Response> => {
     try {
+      const { id } = req.params;
+      const image = req.file?.path;
+
+      if (!Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ success: false, error: "El ID de la propiedad es inválido." });
+      }
+
+      const dataToValidate = { ...req.body, image };
+      const validator = ValidatorOfPropiedadPartial.safeParse(dataToValidate);
+
+      if (!validator.success) {
+        return res.status(400).json({
+          success: false,
+          errors: validator.error.flatten().fieldErrors
+        });
+      }
+
+      const updatedPropiedad = await Propiedad.findByIdAndUpdate(id, validator.data, { new: true });
+
+      if (!updatedPropiedad) {
+        return res.status(404).json({ success: false, error: "Propiedad no encontrada." });
+      }
+
+      return res.status(200).json({ success: true, message: "Propiedad actualizada correctamente.", data: updatedPropiedad });
 
     } catch (error) {
       const e = error as Error;
       return res.status(500).json({ success: false, error: e.message });
     }
-  }
+  };
+
 
   static deletePropiedad = async (req: Request, res: Response): Promise<any | Response> => {
     try {
