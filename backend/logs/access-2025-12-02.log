@@ -1,0 +1,10 @@
+::1 POST /auth/register 201 62 - 183.435 ms
+::1 POST /auth/login 200 43 - 116.199 ms
+::1 POST /auth/login 200 43 - 102.423 ms
+::1 POST /auth/login 200 43 - 101.272 ms
+::1 POST /auth/login 200 43 - 103.853 ms
+::1 POST /auth/login 200 43 - 103.103 ms
+::1 POST /auth/login 200 43 - 101.469 ms
+::1 POST /auth/session 400 55 - 0.529 ms
+::1 GET /auth/session 200 129 - 4.284 ms
+::1 POST /auth/logout 200 44 - 18.346 ms
