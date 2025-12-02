@@ -16,7 +16,7 @@ class PropiedadController {
       }
 
       const dataToValidate = {
-        title, description, category, listingType, price, baths, rooms, address, area, image
+        title, description, category, listingType, price: Number(price), baths: Number(baths), rooms: Number(rooms), address, area, image
       };
 
       const validator = ValidatorOfPropiedad.safeParse(dataToValidate);
@@ -47,13 +47,17 @@ class PropiedadController {
   static updatePropiedad = async (req: Request, res: Response): Promise<any | Response> => {
     try {
       const { id } = req.params;
+      const { title, description, category, listingType, price, baths, rooms, address, area } = req.body;
       const image = req.file?.path;
 
       if (!Types.ObjectId.isValid(id)) {
         return res.status(400).json({ success: false, error: "El ID de la propiedad es inválido." });
       }
 
-      const dataToValidate = { ...req.body, image };
+      const dataToValidate = {
+        title, description, category, listingType, price: Number(price), baths: Number(baths), rooms: Number(rooms), address, area, image
+      };
+
       const validator = ValidatorOfPropiedadPartial.safeParse(dataToValidate);
 
       if (!validator.success) {

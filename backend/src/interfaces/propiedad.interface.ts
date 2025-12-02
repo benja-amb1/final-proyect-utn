@@ -7,7 +7,7 @@ interface PropiedadInterface {
   baths: number;
   rooms: number;
   address: string;
-  area: number;
+  area: string;
   image?: string;
 }
 

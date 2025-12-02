@@ -8,3 +8,15 @@
 ::1 POST /auth/session 400 55 - 0.529 ms
 ::1 GET /auth/session 200 129 - 4.284 ms
 ::1 POST /auth/logout 200 44 - 18.346 ms
+::1 POST /auth/login 200 43 - 145.796 ms
+::1 POST /propiedades/ 500 284 - 17.155 ms
+::1 POST /propiedades/ 400 61 - 5.038 ms
+::1 POST /propiedades/ 400 61 - 3.065 ms
+::1 POST /propiedades/ 400 267 - 5.544 ms
+::1 POST /propiedades/ 500 134 - 52.459 ms
+::1 POST /propiedades/ 500 134 - 48.426 ms
+::1 POST /propiedades/ 500 134 - 47.351 ms
+::1 POST /propiedades/ 201 441 - 39.923 ms
+::1 PATCH /propiedades/ 400 55 - 0.816 ms
+::1 PATCH /propiedades/692f7a58ee16dca1cfd4f763 400 344 - 6.574 ms
+::1 PATCH /propiedades/692f7a58ee16dca1cfd4f763 400 208 - 3.750 ms

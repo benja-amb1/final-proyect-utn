@@ -7,6 +7,7 @@ import logger from './utils/logger';
 import cookieParser from 'cookie-parser'
 import { UserPayload } from './interfaces/userpayload.interface';
 import UserRoutes from './routes/user.routes'
+import PropiedadRoutes from './routes/propiedades.routes'
 import path from 'node:path'
 
 dotenv.config();
@@ -31,7 +32,8 @@ app.use(cookieParser());
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")))
 
 
-app.use('/auth', UserRoutes)
+app.use('/auth', UserRoutes);
+app.use('/propiedades', PropiedadRoutes);
 
 app.get('/', (__: Request, res: Response) => {
   res.json({ status: true })

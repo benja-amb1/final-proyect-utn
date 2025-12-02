@@ -10,7 +10,7 @@ const PropiedadSchema = new Schema<PropiedadInterface>({
   baths: { type: Number, required: true },
   rooms: { type: Number, required: true },
   address: { type: String, required: true },
-  area: { type: Number, required: true },
+  area: { type: String, required: true },
   image: { type: String }
 }, { versionKey: false, timestamps: true });
 

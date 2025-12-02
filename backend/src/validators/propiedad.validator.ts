@@ -9,7 +9,7 @@ const PropiedadValidator = z.object({
   baths: z.number().min(1, "Debe tener al menos 1 baño."),
   rooms: z.number().min(1, "Debe tener al menos 1 habitación."),
   address: z.string().min(5, "La dirección debe tener al menos 5 caracteres."),
-  area: z.number().positive("El área debe ser un número positivo."),
+  area: z.string().min(2, "El área debe tener al menos 2 caracteres."),
   image: z.string().optional()
 });
 
