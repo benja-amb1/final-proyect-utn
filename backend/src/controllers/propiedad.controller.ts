@@ -2,7 +2,8 @@ import { Request, Response } from 'express';
 import { Propiedad } from '../models/propiedad.model';
 import { ValidatorOfPropiedad, ValidatorOfPropiedadPartial } from '../validators/propiedad.validator';
 import path from 'node:path';
-import { Types } from 'mongoose';
+import { FilterQuery, Types } from 'mongoose';
+import { PropiedadFilter } from '../interfaces/propiedadfilter.interface';
 
 class PropiedadController {
   static addPropiedad = async (req: Request, res: Response): Promise<any | Response> => {
@@ -101,12 +102,33 @@ class PropiedadController {
 
   static getPropiedades = async (req: Request, res: Response): Promise<any | Response> => {
     try {
+      const { title, category, listingType, baths, rooms, minPrice, maxPrice } = req.query;
+
+      const filter: PropiedadFilter = {};
+
+      if (title) filter.title = new RegExp(String(title), "i");
+      if (category) filter.category = new RegExp(String(category), "i");
+      if (listingType) filter.listingType = new RegExp(String(listingType), "i");
+
+      if (minPrice || maxPrice) {
+        filter.price = {};
+        if (minPrice) filter.price.$gte = Number(minPrice);
+        if (maxPrice) filter.price.$lte = Number(maxPrice);
+      }
+
+      if (baths) filter.baths = Number(baths);
+      if (rooms) filter.rooms = Number(rooms);
+
+      const propiedades = await Propiedad.find(filter);
+
+      return res.status(200).json({ success: true, data: propiedades });
 
     } catch (error) {
       const e = error as Error;
       return res.status(500).json({ success: false, error: e.message });
     }
-  }
+  };
+
 
   static getPropiedad = async (req: Request, res: Response): Promise<any | Response> => {
     try {
