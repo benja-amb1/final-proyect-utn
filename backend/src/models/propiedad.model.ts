@@ -12,7 +12,7 @@ const PropiedadSchema = new Schema<PropiedadInterface>({
   address: { type: String, required: true },
   area: { type: Number, required: true },
   image: { type: String }
-});
+}, { versionKey: false, timestamps: true });
 
 const Propiedad: Model<PropiedadInterface> = model("Propiedad", PropiedadSchema);
 
