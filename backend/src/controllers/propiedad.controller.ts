@@ -1,15 +1,46 @@
 import { Request, Response } from 'express';
 import { Propiedad } from '../models/propiedad.model';
+import { ValidatorOfPropiedad } from '../validators/propiedad.validator';
+import path from 'node:path';
 
 class PropiedadController {
   static addPropiedad = async (req: Request, res: Response): Promise<any | Response> => {
     try {
+      const { title, description, category, listingType, price, baths, rooms, address, area } = req.body;
+      const image = req.file?.path;
+
+      if (!title || !description || !category || !listingType || !price || !baths || !rooms || !address || !area) {
+        return res.status(400).json({ success: false, error: "Todos los campos son obligatorios" });
+      }
+
+      const dataToValidate = {
+        title, description, category, listingType, price, baths, rooms, address, area, image
+      };
+
+      const validator = ValidatorOfPropiedad.safeParse(dataToValidate);
+
+      if (!validator.success) {
+        return res.status(400).json({
+          success: false,
+          errors: validator.error.flatten().fieldErrors
+        });
+      }
+
+      const nuevaPropiedad = new Propiedad(validator.data);
+      await nuevaPropiedad.save();
+
+      return res.status(201).json({
+        success: true,
+        message: "Propiedad creada correctamente.",
+        data: nuevaPropiedad
+      });
 
     } catch (error) {
       const e = error as Error;
       return res.status(500).json({ success: false, error: e.message });
     }
-  }
+  };
+
 
   static updatePropiedad = async (req: Request, res: Response): Promise<any | Response> => {
     try {
@@ -48,3 +79,5 @@ class PropiedadController {
   }
 
 }
+
+export { PropiedadController }

@@ -7,6 +7,7 @@ import logger from './utils/logger';
 import cookieParser from 'cookie-parser'
 import { UserPayload } from './interfaces/userpayload.interface';
 import UserRoutes from './routes/user.routes'
+import path from 'node:path'
 
 dotenv.config();
 
@@ -26,6 +27,9 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(logger);
 app.use(cookieParser());
+
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")))
+
 
 app.use('/auth', UserRoutes)
 
