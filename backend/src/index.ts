@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import dotenv from 'dotenv'
 import { connect } from './db/connect';
 import logger from './utils/logger';
+import cookieParser from 'cookie-parser'
 
 dotenv.config();
 
@@ -13,7 +14,8 @@ const PORT = process.env.PORT
 app.use(express.json());
 app.use(cors());
 app.use(morgan('dev'));
-app.use(logger)
+app.use(logger);
+app.use(cookieParser());
 
 app.get('/', (__: Request, res: Response) => {
   res.json({ status: true })
