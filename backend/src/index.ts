@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express'
 import cors from 'cors'
 import morgan from 'morgan';
 import dotenv from 'dotenv'
+import { connect } from './db/connect';
 
 dotenv.config();
 
@@ -22,4 +23,5 @@ app.use((__, res) => {
 
 app.listen(PORT, () => {
   console.log(`✅ Conectado al puerto: ${PORT}`);
+  connect();
 })
