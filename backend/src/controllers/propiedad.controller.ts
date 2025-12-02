@@ -110,6 +110,19 @@ class PropiedadController {
 
   static getPropiedad = async (req: Request, res: Response): Promise<any | Response> => {
     try {
+      const { id } = req.params;
+
+      if (!Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ success: false, error: "El ID de la propiedad es inválido." });
+      }
+
+      const propiedad = await Propiedad.findById(id);
+
+      if (!propiedad) {
+        return res.status(404).json({ success: false, error: "Propiedad no encontrada." });
+      }
+
+      return res.status(200).json({ success: true, data: propiedad });
 
     } catch (error) {
       const e = error as Error;
