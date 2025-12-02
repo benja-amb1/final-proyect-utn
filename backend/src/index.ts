@@ -6,6 +6,7 @@ import { connect } from './db/connect';
 import logger from './utils/logger';
 import cookieParser from 'cookie-parser'
 import { UserPayload } from './interfaces/userpayload.interface';
+import UserRoutes from './routes/user.routes'
 
 dotenv.config();
 
@@ -25,6 +26,8 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(logger);
 app.use(cookieParser());
+
+app.use('/auth', UserRoutes)
 
 app.get('/', (__: Request, res: Response) => {
   res.json({ status: true })
