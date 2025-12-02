@@ -5,8 +5,17 @@ import dotenv from 'dotenv'
 import { connect } from './db/connect';
 import logger from './utils/logger';
 import cookieParser from 'cookie-parser'
+import { UserPayload } from './interfaces/userpayload.interface';
 
 dotenv.config();
+
+declare global {
+  namespace Express {
+    interface Request {
+      user?: UserPayload
+    }
+  }
+}
 
 const app = express();
 const PORT = process.env.PORT

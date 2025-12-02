@@ -94,6 +94,27 @@ class UserController {
     }
   }
 
+  static getSession = async (req: Request, res: Response): Promise<any | Response> => {
+    try {
+      const { token } = req.cookies;
+      const user = req.user;
+
+      if (!token) {
+        return res.status(400).json({ success: false, error: "Token no proporcionado." });
+      }
+
+      if (!user) {
+        return res.status(401).json({ success: false, error: "No hay usuario proporcionado." });
+      }
+
+      return res.status(200).json({ success: true, message: 'El usuario tiene sesión', data: user })
+
+
+    } catch (error) {
+      const e = error as Error;
+      return res.status(500).json({ success: false, error: e.message });
+    }
+  }
 }
 
 export { UserController };
