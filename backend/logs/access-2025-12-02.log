@@ -20,3 +20,9 @@
 ::1 PATCH /propiedades/ 400 55 - 0.816 ms
 ::1 PATCH /propiedades/692f7a58ee16dca1cfd4f763 400 344 - 6.574 ms
 ::1 PATCH /propiedades/692f7a58ee16dca1cfd4f763 400 208 - 3.750 ms
+::1 PATCH /propiedades/692f7a58ee16dca1cfd4f763 200 447 - 46.382 ms
+::1 PATCH /propiedades/692f7a58ee16dca1cfd4f763 200 448 - 13.387 ms
+::1 GET /propiedades/692f7a58ee16dca1cfd4f763 200 399 - 9.048 ms
+::1 GET /propiedades/ 200 401 - 5.255 ms
+::1 DELETE /propiedades/692f7a58ee16dca1cfd4f763 200 446 - 9.193 ms
+::1 DELETE /propiedades/ 400 55 - 0.423 ms

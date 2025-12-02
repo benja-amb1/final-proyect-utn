@@ -9,6 +9,8 @@ import { UserPayload } from './interfaces/userpayload.interface';
 import UserRoutes from './routes/user.routes'
 import PropiedadRoutes from './routes/propiedades.routes'
 import path from 'node:path'
+import { emailService } from './services/email.service';
+import limiter from './middlewares/ratelimit.middleware';
 
 dotenv.config();
 
@@ -32,8 +34,9 @@ app.use(cookieParser());
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")))
 
 
-app.use('/auth', UserRoutes);
+app.use('/auth', limiter, UserRoutes);
 app.use('/propiedades', PropiedadRoutes);
+app.post('/email/send', emailService)
 
 app.get('/', (__: Request, res: Response) => {
   res.json({ status: true })
