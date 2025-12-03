@@ -2,3 +2,4 @@
 ::1 POST /email/send 500 61 - 535.207 ms
 ::1 POST /email/send 500 61 - 503.117 ms
 ::1 POST /email/send 500 61 - 463.226 ms
+::1 POST /email/send 200 591 - 2294.813 ms

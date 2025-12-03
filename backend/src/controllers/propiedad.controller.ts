@@ -9,14 +9,15 @@ class PropiedadController {
   static addPropiedad = async (req: Request, res: Response): Promise<any | Response> => {
     try {
       const { title, description, category, listingType, price, baths, rooms, address, area } = req.body;
-      const image = req.file?.path;
+      const imageName = req.file?.filename;
+      const image = imageName ? `/uploads/${imageName}` : undefined;
 
       if (!title || !description || !category || !listingType || !price || !baths || !rooms || !address || !area) {
         return res.status(400).json({ success: false, error: "Todos los campos son obligatorios" });
       }
 
       const dataToValidate = {
-        title, description, category, listingType, price: Number(price), baths: Number(baths), rooms: Number(rooms), address, area, image
+        title, description, category, listingType, price: Number(price), baths: Number(baths), rooms: Number(rooms), address, area, image: image
       };
 
       const validator = ValidatorOfPropiedad.safeParse(dataToValidate);
