@@ -26,7 +26,7 @@ const app = express();
 const PORT = process.env.PORT
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: '*' }));
 app.use(morgan('dev'));
 app.use(logger);
 app.use(cookieParser());
@@ -34,7 +34,7 @@ app.use(cookieParser());
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")))
 
 
-app.use('/auth', limiter, UserRoutes);
+app.use('/auth', UserRoutes);
 app.use('/propiedades', PropiedadRoutes);
 app.post('/email/send', emailService)
 
