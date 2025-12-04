@@ -62,11 +62,11 @@ class UserController {
 
       const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET!, { expiresIn: '1h' });
 
-      res.cookie('token', token, {
+      res.cookie("token", token, {
         httpOnly: true,
-        //secure: process.env.NODE_ENV === "production",
         secure: true,
-        sameSite: "none"
+        sameSite: "none",
+        partitioned: true
       });
 
       return res.status(200).json({ success: true, message: "Login exitoso." });
