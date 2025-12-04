@@ -1,33 +1,28 @@
-import multer from 'multer';
-import path from 'node:path';
-import fs from 'node:fs';
-import crypto from 'crypto';
-
-const uploadDir = path.join(__dirname, '../uploads');
-
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
+import multer from "multer";
+import path from 'node:path'
 
 const storage = multer.diskStorage({
+
   destination: (req, file, cb) => {
-    cb(null, uploadDir);
+    cb(null, "uploads")
   },
 
   filename: (req, file, cb) => {
-    const name = Date.now() + '-' + crypto.randomUUID();
-    cb(null, name + path.extname(file.originalname));
+    const name = Date.now() + "-" + crypto.randomUUID();
+    cb(null, name + path.extname(file.originalname))
   }
-});
+
+})
 
 const fileFilter = (req: Express.Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
+
   if (file.mimetype.startsWith('image/')) {
-    cb(null, true);
+    cb(null, true)
   } else {
-    cb(new Error("Solo se permiten imágenes."));
+    cb(new Error("Solo se permiten imágenes."))
   }
-};
+}
 
 const upload = multer({ storage, fileFilter });
 
-export default upload;
+export default upload

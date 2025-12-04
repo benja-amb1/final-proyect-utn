@@ -10,6 +10,7 @@ import UserRoutes from './routes/user.routes'
 import PropiedadRoutes from './routes/propiedades.routes'
 import path from 'node:path'
 import { emailService } from './services/email.service';
+import fs from 'node:fs'
 
 dotenv.config();
 
@@ -37,7 +38,12 @@ app.use(morgan('dev'));
 app.use(logger);
 app.use(cookieParser());
 
-app.use("/uploads", express.static(path.join(__dirname, "../uploads")))
+const uploadsPath = path.join(__dirname, "../uploads")
+
+if (!fs.existsSync(uploadsPath)) {
+  fs.mkdirSync(uploadsPath, { recursive: true })
+}
+app.use("/uploads", express.static(uploadsPath))
 
 
 app.use('/auth', UserRoutes);
