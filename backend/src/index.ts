@@ -25,7 +25,14 @@ const app = express();
 const PORT = process.env.PORT
 
 app.use(express.json());
-app.use(cors({ credentials: true }));
+
+app.use(cors({
+  origin: (origin, callback) => {
+    callback(null, origin || "*");
+  },
+  credentials: true
+}));
+
 app.use(morgan('dev'));
 app.use(logger);
 app.use(cookieParser());
