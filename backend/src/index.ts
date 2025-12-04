@@ -10,7 +10,6 @@ import UserRoutes from './routes/user.routes'
 import PropiedadRoutes from './routes/propiedades.routes'
 import path from 'node:path'
 import { emailService } from './services/email.service';
-import limiter from './middlewares/ratelimit.middleware';
 
 dotenv.config();
 
@@ -26,7 +25,7 @@ const app = express();
 const PORT = process.env.PORT
 
 app.use(express.json());
-app.use(cors({ origin: '*' }));
+app.use(cors({ credentials: true }));
 app.use(morgan('dev'));
 app.use(logger);
 app.use(cookieParser());
